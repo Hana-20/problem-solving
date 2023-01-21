@@ -1,0 +1,41 @@
+class RandomizedSet {
+    private int size;
+    private int[] mySet;
+    private int randomIndex;
+    private Set<Integer> set;
+    public RandomizedSet() {
+        set=new HashSet<Integer>();
+        mySet=new int[200001];
+    }
+    
+    public boolean insert(int val) {
+        if(set.contains(val)){
+            return false;
+        }
+        set.add(val);
+        mySet[size]=val;
+        size++;
+        return true;
+    }
+    
+    public boolean remove(int val) {
+        if(set.contains(val)){
+            set.remove(val);
+        for(int i=0;i<size;i++){
+           if( mySet[i]==val){
+               mySet[i]=mySet[--size];
+           }
+       }
+       return true;
+        }
+        return false;
+        
+    }
+    
+    public int getRandom() {
+        randomIndex++;
+        randomIndex%=size;
+        Random random = new Random();
+        return mySet[random.nextInt(size)];
+    }
+}

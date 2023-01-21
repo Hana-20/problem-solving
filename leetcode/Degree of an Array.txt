@@ -1,0 +1,41 @@
+class Solution {
+    public int findShortestSubArray(int[] nums) {
+        Map<Integer,Integer> map = new  HashMap<Integer,Integer>();
+        int [] freq=new int[nums.length];
+        int Max=0,y=0,i=0,Min=nums.length,n=nums.length;
+        for(i=0;i<n;i++){
+            if(map.containsKey(nums[i])){
+                map.put(nums[i],map.get(nums[i])+1);
+                
+            }
+            else{
+                 map.put(nums[i],1);
+            }
+            Max=(Max <map.get(nums[i])?map.get(nums[i]): Max);
+            freq[i]=map.get(nums[i]);
+        }
+        i=0;
+        
+        while(y<n){
+            freq[y]=freq[y]>map.get(nums[y])?map.get(nums[y]):freq[y];
+            while(i<=y&&freq[y]>=Max){
+                if(freq[y]>Max){
+                    freq[y]--;
+                    map.put(nums[i],map.get(nums[i])-1);
+                }
+                if(Min>y-i+1){
+                    Min=y-i+1;
+                    System.out.println(Min);
+                }
+                if(nums[i]==nums[y]){
+                    freq[y]--;
+                }
+                map.put(nums[i],map.get(nums[i])-1);
+                i++;
+            }
+            y++;
+        }
+        
+       return Min; 
+    }
+}

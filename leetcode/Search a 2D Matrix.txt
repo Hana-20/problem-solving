@@ -1,0 +1,28 @@
+class Solution {
+       public boolean binarySearch(int arr[], int first, int last, int key){  
+        if (last>=first){  
+            int mid = first + (last - first)/2;  
+            if (arr[mid] == key){  
+            return true;  
+            }  
+            if (arr[mid] > key){  
+            return binarySearch(arr, first, mid-1, key);  
+            }else{  
+            return binarySearch(arr, mid+1, last, key);  
+            }  
+        }  
+        return false;  
+    }
+    public boolean searchMatrix(int[][] matrix, int target) {
+        boolean out=false;
+    if(target<=matrix[matrix.length-1][matrix[0].length-1]&&target>=matrix[0][0]) {
+        for(int i=0;i<matrix.length;i++){
+            if(target<=matrix[i][matrix[0].length-1]){
+                out=binarySearch(matrix[i],0,matrix[0].length-1,target);
+                break;
+            }
+        }
+    }
+    return out;  
+    }
+}
